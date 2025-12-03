@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>To-Do List en JavaScript</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f4f4f4;
+            padding: 20px;
+        }
+        h1 {
+            text-align: center;
+        }
+        #container {
+            max-width: 400px;
+            background: #fff;
+            padding: 20px;
+            margin: auto;
+            border-radius: 10px;
+            box-shadow: 0px 0px 10px #ccc;
+        }
+        li {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 10px;
+            padding: 10px;
+            background: #eee;
+            border-radius: 5px;
+        }
+        .done {
+            text-decoration: line-through;
+            color: gray;
+        }
+    </style>
+</head>
+<body>
+
+    <div id="container">
+        <h1>To-Do List</h1>
+
+        <input id="taskInput" type="text" placeholder="Escribe una tarea...">
+        <button onclick="addTask()">Agregar</button>
+
+        <ul id="taskList"></ul>
+    </div>
+
+    <script>
+        function addTask() {
+            let input = document.getElementById("taskInput");
+            let taskText = input.value.trim();
+
+            if (taskText === "") {
+                alert("Escribe una tarea primero");
+                return;
+            }
+
+            let li = document.createElement("li");
+            li.innerHTML = `
+                <span>${taskText}</span>
+                <button onclick="toggleTask(this)">✔</button>
+                <button onclick="deleteTask(this)">✖</button>
+            `;
+
+            document.getElementById("taskList").appendChild(li);
+            input.value = "";
+        }
+
+        function toggleTask(button) {
+            let li = button.parentElement;
+            let span = li.querySelector("span");
+            span.classList.toggle("done");
+        }
+
+        function deleteTask(button) {
+            let li = button.parentElement;
+            li.remove();
+        }
+    </script>
+
+</body>
+</html>
